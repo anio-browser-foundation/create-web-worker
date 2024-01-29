@@ -1,6 +1,10 @@
 export default function browserCreateWebWorker(worker_file_url, worker_args, additional) {
 	let resolve, reject;
 
+	/**
+	 * @anio-js-core-foundation/create-promise is not
+	 * used here to keep this package dependency free.
+	 */
 	let promise = new Promise((a, b) => {
 		resolve = a; reject = b;
 	})
