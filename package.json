@@ -1,0 +1,12 @@
+{
+  "name": "@anio-js-foundation/browser-create-web-worker",
+  "version": "0.0.1",
+  "description": "Create a browser web worker.",
+  "main": "./src/index.mjs",
+  "author": "Anio Software <info@anio.software>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anio-js-foundation/browser-create-web-worker.git"
+  }
+}
