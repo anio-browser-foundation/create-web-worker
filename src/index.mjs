@@ -1,3 +1,35 @@
+function createWebWorkerInstance({
+	web_worker,
+	web_worker_message_buffer
+}) {
+	let instance = {}
+
+	Object.defineProperty(instance, "onMessage", {
+		set(handler) {
+			// dump message buffer first
+			while (web_worker_message_buffer.length) {
+				const msg = web_worker_message_buffer.shift()
+
+				handler(msg.data)
+			}
+
+			web_worker.onmessage = (msg) => handler(msg.data)
+		}
+	})
+
+	Object.defineProperty(instance, "sendMessage", {
+		enumerable: true,
+		get() { return (str) => web_worker.postMessage(str) }
+	})
+
+	Object.defineProperty(instance, "terminate", {
+		enumerable: true,
+		get() { return () => web_worker.terminate() }
+	})
+
+	return instance
+}
+
 export default function browserCreateWebWorker(worker_file_url, worker_args, additional) {
 	let resolve, reject;
 
@@ -20,42 +52,12 @@ export default function browserCreateWebWorker(worker_file_url, worker_args, add
 		if (msg.data === init_token) {
 			web_worker.onerror = undefined
 
-			let web_worker_instance = {}
-
-			Object.defineProperty(web_worker_instance, "onMessage", {
-				set(v) {
-					while (web_worker_message_buffer.length) {
-						const msg = web_worker_message_buffer.shift()
-
-						v(msg.data)
-					}
-
-					web_worker.onmessage = (msg) => {
-						v(msg.data)
-					}
-				}
-			})
-
-			Object.defineProperty(web_worker_instance, "sendMessage", {
-				enumerable: true,
-				get() {
-					return (str) => {
-						web_worker.postMessage(str)
-					}
-				}
-			})
-
-			Object.defineProperty(web_worker_instance, "terminate", {
-				enumerable: true,
-
-				get() {
-					return () => {
-						web_worker.terminate()
-					}
-				}
-			})
-
-			resolve(web_worker_instance)
+			resolve(
+				createWebWorkerInstance({
+					web_worker,
+					web_worker_message_buffer
+				})
+			)
 		}
 		// buffer other messages between web worker and main script
 		else {
