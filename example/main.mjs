@@ -1,8 +1,8 @@
 import browserCreateWebWorker from "/src/index.mjs"
 
-const worker = await browserCreateWebWorker("/example/web_worker.mjs", ["a", "b"], {
-	bootstrap: "/src/bootstrap.mjs"
-})
+const worker = await browserCreateWebWorker(
+	document.location.origin + "/example/web_worker.mjs", ["a", "b"]
+)
 
 worker.sendMessage("Hello from main!")
 

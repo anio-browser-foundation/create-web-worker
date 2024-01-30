@@ -8,5 +8,8 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/anio-js-foundation/browser-create-web-worker.git"
+  },
+  "scripts": {
+    "prepare": "node prepare.mjs"
   }
 }
