@@ -17,5 +17,8 @@
   },
   "devDependencies": {
     "@anio-js-foundation/bundle-package": "^2.0.1"
-  }
+  },
+  "files": [
+    "./dist/package.mjs"
+  ]
 }
