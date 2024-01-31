@@ -11,5 +11,8 @@
   },
   "scripts": {
     "prepare": "node prepare.mjs"
+  },
+  "dependencies": {
+    "@anio-js-core-foundation/create-promise": "^1.0.1"
   }
 }

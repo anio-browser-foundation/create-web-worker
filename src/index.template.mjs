@@ -1,3 +1,5 @@
+import createPromise from "@anio-js-core-foundation/create-promise"
+
 function createWebWorkerInstance({
 	web_worker,
 	web_worker_message_buffer
@@ -37,15 +39,7 @@ function createBootstrapBlob() {
 }
 
 export default function browserCreateWebWorker(worker_file_url, worker_args, additional = {}) {
-	let resolve, reject;
-
-	/**
-	 * @anio-js-core-foundation/create-promise is not
-	 * used here to keep this package dependency free.
-	 */
-	let promise = new Promise((a, b) => {
-		resolve = a; reject = b;
-	})
+	let {promise, resolve, reject} = createPromise()
 
 	const init_token = Math.random().toString(32) + "_" + Math.random().toString(32)
 
