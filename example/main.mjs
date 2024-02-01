@@ -1,4 +1,4 @@
-import browserCreateWebWorker from "/src/index.mjs"
+import browserCreateWebWorker from "/dist/package.mjs"
 
 const worker = await browserCreateWebWorker(
 	document.location.origin + "/example/web_worker.mjs", ["a", "b"]
