@@ -1,4 +1,5 @@
 import createPromise from "@anio-js-core-foundation/create-promise"
+import createTemporaryResource from "@anio-js-foundation/create-temporary-resource"
 
 function createWebWorkerInstance({
 	web_worker,
@@ -32,20 +33,16 @@ function createWebWorkerInstance({
 	return instance
 }
 
-function createBootstrapBlob() {
-	const blob = new Blob([`$bootstrap.mjs_file_contents$`], {type: "text/javascript"})
-
-	return URL.createObjectURL(blob)
-}
-
-export default function browserCreateWebWorker(worker_file_url, worker_args, additional = {}) {
+export default async function browserCreateWebWorker(worker_file_url, worker_args, additional = {}) {
 	let {promise, resolve, reject} = createPromise()
 
 	const init_token = Math.random().toString(32) + "_" + Math.random().toString(32)
 
-	const url = createBootstrapBlob()
+	const bootstrap = await createTemporaryResource(
+		`$bootstrap.mjs_file_contents$`, {type: "text/javascript"}
+	)
 
-	let web_worker = new window.Worker(url)
+	let web_worker = new window.Worker(bootstrap.location)
 	let web_worker_message_buffer = []
 
 	web_worker.onerror = reject
@@ -74,5 +71,5 @@ export default function browserCreateWebWorker(worker_file_url, worker_args, add
 		additional
 	}))
 
-	return promise
+	return await promise
 }
