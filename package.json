@@ -10,7 +10,7 @@
     "url": "git+https://github.com/anio-js-foundation/browser-create-web-worker.git"
   },
   "scripts": {
-    "prepare": "node prepare.mjs && ./node_modules/.bin/bundle-package ."
+    "prepare": "./node_modules/.bin/bundle-package ."
   },
   "devDependencies": {
     "@anio-js-core-foundation/create-promise": "^1.0.1",
