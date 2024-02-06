@@ -1,6 +1,6 @@
 {
   "name": "@anio-js-foundation/browser-create-web-worker",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Create a browser web worker.",
   "main": "./dist/package.mjs",
   "author": "Anio Software <info@anio.software>",
