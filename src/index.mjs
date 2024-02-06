@@ -39,7 +39,7 @@ export default async function browserCreateWebWorker(worker_file_url, worker_arg
 	const init_token = Math.random().toString(32) + "_" + Math.random().toString(32)
 
 	const bootstrap = await createTemporaryResource(
-		`$bootstrap.mjs_file_contents$`
+		`$bootstrap.mjs_file_contents$`, {type: "text/javascript"}
 	)
 
 	let web_worker = new window.Worker(bootstrap.location)
