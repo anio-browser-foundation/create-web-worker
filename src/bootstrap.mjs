@@ -7,16 +7,22 @@ function createWebWorkerThis({
 	let new_this = {}
 
 	Object.defineProperty(new_this, "importmap", {
+		enumerable: true,
+
 		set() { throw new Error(`Cannot set importmap.`) },
 		get() { return importmap }
 	})
 
 	Object.defineProperty(new_this, "sendMessage", {
+		enumerable: true,
+
 		set() { throw new Error(`Cannot set sendMessage.`) },
 		get() { return (str) => postMessage(str) }
 	})
 
 	Object.defineProperty(new_this, "onMessage", {
+		enumerable: true,
+
 		get() { throw new Error(`Cannot read onMessage.`) },
 		set(v) { onmessage = (msg) => v(msg.data) }
 	})
