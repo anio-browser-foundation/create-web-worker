@@ -1,23 +1,31 @@
 import createPromise from "@anio-js-core-foundation/create-promise"
 import createTemporaryResource from "@anio-js-foundation/create-temporary-resource"
-import bootstrap_code from "includeStaticResource:./bootstrap.mjs"
+import eventEmitter from "@anio-js-core-foundation/simple-event-emitter"
+
+import bootstrap_code from "includeStaticResource:../dist/bootstrap.mjs"
 
 function createWebWorkerInstance({
 	web_worker,
 	web_worker_message_buffer
 }) {
 	let instance = {}
+	let event_emitter = eventEmitter(["message"])
 
-	Object.defineProperty(instance, "onMessage", {
-		set(handler) {
-			// dump message buffer first
-			while (web_worker_message_buffer.length) {
-				const msg = web_worker_message_buffer.shift()
+	let dispatchEvent = event_emitter.install(instance)
 
-				handler(msg.data)
-			}
+	web_worker.onmessage = msg => {
+		dispatchEvent("message", msg.data)
+	}
 
-			web_worker.onmessage = (msg) => handler(msg.data)
+	/* dump message buffer on first 'message' handler installed */
+	event_emitter.setOnEventHandlerAddedHandler((event_name, handler) => {
+		if (event_name !== "message") return
+
+		// dump buffer
+		while (web_worker_message_buffer.length) {
+			const msg = web_worker_message_buffer.shift()
+
+			handler(msg.data)
 		}
 	})
 

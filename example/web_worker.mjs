@@ -1,9 +1,9 @@
 export function WebWorkerMain(...args) {
 	console.log("WebWorkerMain", args)
 
-	this.onMessage = data => {
-		console.log("Web Worker got a message", data)
-	}
+	this.on("message", msg => {
+		console.log("Web Worker got a message", msg)
+	})
 
 	this.sendMessage("Hello from Web Worker!")
 

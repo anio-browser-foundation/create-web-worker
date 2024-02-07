@@ -6,9 +6,9 @@ const worker = await browserCreateWebWorker(
 
 worker.sendMessage("Hello from main!")
 
-worker.onMessage = (msg) => {
+worker.on("message", msg => {
 	console.log("Got message from web worker", msg)
-}
+})
 
 setTimeout(() => {
 	worker.sendMessage("Hello from main again!")
