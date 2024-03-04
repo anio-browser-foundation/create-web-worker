@@ -1,5 +1,5 @@
 {
-  "name": "@anio-js-foundation/browser-create-web-worker",
+  "name": "@anio-browser-foundation/create-web-worker",
   "version": "0.6.0",
   "description": "Create a browser web worker.",
   "main": "./dist/package.mjs",
@@ -7,16 +7,16 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anio-js-foundation/browser-create-web-worker.git"
-  },
-  "scripts": {
-    "prepare": "./node_modules/.bin/bundle-package . bootstrap.mjs"
+    "url": "git+https://github.com/anio-browser-foundation/create-web-worker.git"
   },
   "devDependencies": {
-    "@anio-js-core-foundation/create-promise": "^1.0.1",
-    "@anio-js-core-foundation/simple-event-emitter": "^0.2.0",
-    "@anio-js-foundation/bundle-package": "^3.1.0",
-    "@anio-js-foundation/create-temporary-resource": "^0.3.1"
+    "@anio-js-foundation/create-promise": "^2.0.0",
+    "@anio-js-foundation/create-temporary-resource": "^1.0.0",
+    "@anio-js-foundation/simple-event-emitter": "^1.0.0",
+    "@anio-software/npm-package-bundler": "^1.0.0"
+  },
+  "scripts": {
+    "prepare": "./node_modules/.bin/npm-package-bundler ."
   },
   "files": [
     "./dist/package.mjs"

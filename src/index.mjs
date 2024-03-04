@@ -1,6 +1,6 @@
-import createPromise from "@anio-js-core-foundation/create-promise"
+import createPromise from "@anio-js-foundation/create-promise"
 import createTemporaryResource from "@anio-js-foundation/create-temporary-resource"
-import eventEmitter from "@anio-js-core-foundation/simple-event-emitter"
+import eventEmitter from "@anio-js-foundation/simple-event-emitter"
 
 import bootstrap_code from "includeStaticResource:../dist/bootstrap.mjs"
 
